@@ -1,0 +1,67 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+@{
+    ViewBag.Title = "EditBook";
+    Knjiga k = (Knjiga)ViewBag.Knjiga;
+    Zanr z = k.ZanrKnjige;
+}
+
+@if (TempData["message"] != null)
+{
+    <p style="text-align:center; font-family:Cambria; font-size:20px; font-weight:bold; font-style:italic;">@TempData["message"]</p>
+    TempData["message"] = null;
+}
+
+<br /><br />
+
+<form class="form-content" style="max-width:300px; margin:auto;" method="post" action="~/Books/EditBookClick?oldN=@k.Naziv&oldA=@k.Autor&oldC=@k.Cena">
+    <input style="height:40px; width:300px;" type="text" value="@k.Naziv" name="naziv" /> <br /><br />
+    <input style="height:40px; width:300px;" type="text" value="@k.Autor" name="autor" /> <br /><br />
+    <input style="height:40px; width:300px;" type="number" value="@k.BrojStranica" name="brojStranica" /> <br /><br />
+    <select name="zanr" style="height:35px; width:90px;">
+    @if (k.ZanrKnjige == Zanr.ROMAN)
+    {
+        <option value="ROMAN" selected="selected">ROMAN</option>
+    }
+    else
+    {
+        <option value="ROMAN">ROMAN</option>
+    }
+    @if (k.ZanrKnjige == Zanr.DRAMA)
+    {
+        <option value="DRAMA" selected="selected">DRAMA</option>
+    }
+    else
+    {
+        <option value="DRAMA">DRAMA</option>
+    }
+    @if (k.ZanrKnjige == Zanr.TEEN)
+    {
+        <option value="TEEN" selected="selected">TEEN</option>
+    }
+    else
+    {
+        <option value="TEEN">TEEN</option>
+    }
+    @if (k.ZanrKnjige == Zanr.KRIMI)
+    {
+        <option value="KRIMI" selected="selected">KRIMI</option>
+    }
+    else
+    {
+        <option value="KRIMI">KRIMI</option>
+    }
+    @if (k.ZanrKnjige == Zanr.KLASIK)
+    {
+        <option value="KLASIK" selected="selected">KLASIK</option>
+    }
+    else
+    {
+        <option value="KLASIK">KLASIK</option>
+    }
+    </select> <br /><br />
+    <textarea style="resize:none; height:260px; width:300px;" name="opis" >@k.Opis</textarea> <br /><br />
+    <input style="height:40px; width:300px;" type="number" value="@k.Cena" name="cena" /> <br /><br />
+    <input style="height:40px; width:300px;" type="number" value="@k.BrojKopija" name="brojKopija" /> <br /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input style="height:30px; width:190px;" type="submit" value="Save changes" />
+</form>

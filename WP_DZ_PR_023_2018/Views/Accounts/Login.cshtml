@@ -1,0 +1,21 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+@{
+    ViewBag.Title = "Login";
+}
+
+<br /><br /><br />
+
+@if (TempData["message"] != null)
+{
+    <p style="text-align:center; font-family:Cambria; font-size:20px; font-weight:bold; font-style:italic;">@TempData["message"]</p>
+    TempData["message"] = null;
+}
+
+<br /><br />
+
+<form class="form-content" method="post" action="~/Accounts/LoginClick">
+    <input style="height:40px; width:200px;" type="text" autofocus="autofocus" placeholder="Korisnicko ime" name="korisnickoIme" /> <br /><br />
+    <input style="height:40px; width:200px;" type="password" placeholder="Lozinka" name="lozinka" /> <br /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input style="height:30px; width:100px;" type="submit" value="Log in" />
+</form>

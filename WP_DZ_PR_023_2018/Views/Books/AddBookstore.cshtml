@@ -1,0 +1,21 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+@{
+    ViewBag.Title = "AddBookstore";
+}
+
+<br /><br /><br />
+
+@if (TempData["message"] != null)
+{
+    <p style="text-align:center; font-family:Cambria; font-size:20px; font-weight:bold; font-style:italic;">@TempData["message"]</p>
+    TempData["message"] = null;
+}
+
+<br /><br />
+
+<form class="form-content" style="max-width:300px; margin:auto;" method="post" action="~/Books/AddBookstoreClick">
+    <input style="height:40px; width:300px;" type="text" placeholder="Naziv" name="naziv" /> <br /><br />
+    <input style="height:40px; width:300px;" type="text" placeholder="Adresa" name="adresa" /> <br /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input style="height:30px; width:190px;" type="submit" value="Add bookstore" />
+</form>

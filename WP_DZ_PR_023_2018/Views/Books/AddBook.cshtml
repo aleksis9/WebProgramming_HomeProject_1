@@ -1,0 +1,36 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+@{
+    ViewBag.Title = "AddBook";
+}
+
+@if (TempData["message"] != null)
+{
+    <p style="text-align:center; font-family:Cambria; font-size:20px; font-weight:bold; font-style:italic;">@TempData["message"]</p>
+    TempData["message"] = null;
+}
+
+<br /><br />
+
+      <form class="form-content" style="max-width:300px; margin:auto;" method="post" action="~/Books/AddBookClick">
+          <input style="height:40px; width:300px;" type="text" placeholder="Naziv" name="naziv" /> <br /><br />
+          <input style="height:40px; width:300px;" type="text" placeholder="Autor" name="autor" /> <br /><br />
+          <input style="height:40px; width:300px;" type="number" placeholder="Broj stranica" name="brojStranica" /> <br /><br />
+          <select name="zanr" style="height:35px; width:90px;">
+              <option value="ROMAN">ROMAN</option>
+              <option value="DRAMA">DRAMA</option>
+              <option value="TEEN">TEEN</option>
+              <option value="KRIMI">KRIMI</option>
+              <option value="KLASIK">KLASIK</option>
+          </select> <br /><br />
+          <textarea style="resize:none; height:260px; width:300px;" name="opis" placeholder="Opis"></textarea> <br /><br />
+          <input style="height:40px; width:300px;" step="0.01" type="number" placeholder="Cena" name="cena" /> <br /><br />
+          <input style="height:40px; width:300px;" type="number" placeholder="Broj kopija" name="brojKopija" /> <br /><br />
+          <select name="knjizara" style="height:35px; width:300px;">
+              @foreach (Knjizara knjizara in ((Dictionary<string, Knjizara>)Context.Application["knjizare"]).Values)
+              {
+                  <option value="@knjizara.Naziv;@knjizara.Adresa">@knjizara.Naziv; @knjizara.Adresa</option>
+              }
+          </select> <br /><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input style="height:30px; width:190px;" type="submit" value="Add book" />
+      </form>

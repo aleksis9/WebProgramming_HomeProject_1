@@ -1,0 +1,56 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+@{
+    ViewBag.Title = "Index";
+    List<Kupovina> kupovine = (List<Kupovina>)Session["kupovine"];
+}
+
+@if (TempData["message"] != null)
+{
+    <p style="text-align:center; font-family:Cambria; font-size:20px; font-weight:bold; font-style:italic;">@TempData["message"]</p>
+    TempData["message"] = null;
+}
+
+<h2 style="text-align:center; color:black; font-size:30px;">Shopping history</h2>
+
+@if (Session["kupac"] != null && kupovine != null && kupovine.Count != 0)
+{
+    foreach (Kupovina kupovina in kupovine)
+    {
+        <br /><br />
+        <table class="content" style="border-left:0px; border-right:0px;">
+            <tr style="border-bottom:2px solid black; border-top:2px solid black;">
+                <td width="800" colspan="3" align="left" style="font-weight:bold; font-size:20px; font-family:Cambria;">
+                    Vreme kupovine: @kupovina.DatumKupovine
+                </td>
+            </tr>
+            <tr style="border-bottom:2px solid black; border-top:2px solid black;">
+                <td width="800" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Naziv</td>
+                <td width="800" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Autor</td>
+                <td width="300" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Cena</td>
+            </tr>
+            @foreach (Knjiga k in kupovina.Knjige)
+            {
+                <tr style="border-bottom:2px solid black; border-top:2px solid black;">
+                    <td width="800" align="center" style="font-size:20px; font-family:Cambria;">@k.Naziv</td>
+                    <td width="800" align="center" style="font-size:20px; font-family:Cambria;">@k.Autor</td>
+                    <td width="300" align="center" style="font-size:20px; font-family:Cambria;">@k.Cena</td>
+                </tr>
+            }
+            <tr style="border-bottom:2px solid black; border-top:2px solid black;">
+                <td width="800" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;"></td>
+                <td width="800" align="right" style="font-weight:bold; font-size:20px; font-family:Cambria;">Ukupna cena:</td>
+                <td width="300" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">@kupovina.UkupnaCena</td>
+            </tr>
+        </table>
+
+    }
+}
+else
+{
+    <br />
+    <p style="text-align:center; font-style:italic; font-size:20px; font-weight:500; font-family:Cambria;">Istorija je prazna</p>
+}
+
+<br /><br />
+<a href="~/Shopping/Chart">Nazad</a>
+

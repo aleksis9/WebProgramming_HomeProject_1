@@ -1,0 +1,95 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link rel="stylesheet" href="~/Content/basic.css" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+        @{
+            Korisnik kupac = null;
+            if (Session["kupac"] == null)
+            {
+                <h2>MyBookstore</h2>
+            }
+            else
+            {
+                kupac = (Korisnik)Session["kupac"];
+                <h2>@kupac.Ime @kupac.Prezime</h2>
+            }
+        }
+
+        <table>
+            <tr style="text-align:center; font-size:larger;">
+                <td align="left" width="100" style="font-family:Cambria;"><a href="~/Books/Index">Books</a></td>
+                @if (kupac != null)
+                {
+                    <td align="left" width="650" style="font-family:Cambria;"><a href="~/Books/Bookstores">Bookstores</a></td>
+                    if (kupac.UlogaKorisnika == Uloga.ADMIN)
+                    {
+                        <td align="left" width="700" style="font-family:Cambria;"><a href="~/Accounts/ListAccounts">Accounts</a></td>
+                    }
+                }
+                else
+                {
+                    <td align="left" width="650" style="font-family:Cambria;"> </td>
+                }
+                @if (kupac == null || !(kupac.LoggedIn))
+                {
+                    <td align="right" width="250" style="font-family:Cambria;"><a href="~/Accounts/LogIn">Log in</a></td>
+                }
+                else
+                {
+                    <td align="right" width="100" style="font-family:Cambria;"><a href="~/Accounts/LogoutClick">Log out</a></td>
+                }
+                <td align="right" width="120" style="font-family:Cambria;"><a href="~/Accounts/Index">Register</a></td>
+                @if (kupac != null && kupac.UlogaKorisnika == Uloga.KUPAC && kupac.LoggedIn == true)
+                {
+                    <td align="right" width="180" style="font-family:Cambria;"><a href="~/Shopping/Chart">Shopping chart</a></td>
+                }
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="color:deeppink;">__________________________________________________________________________________________________________________________________________________</td>
+            </tr>
+        </table>
+        <br />
+
+
+        @RenderBody()
+        <hr />
+        <!--
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+        -->
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

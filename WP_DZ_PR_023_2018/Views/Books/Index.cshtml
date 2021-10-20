@@ -1,0 +1,168 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (TempData["message"] != null)
+{
+    <p style="text-align:center; font-family:Cambria; font-size:20px; font-weight:bold; font-style:italic;">@TempData["message"]</p>
+    TempData["message"] = null;
+}
+
+<br />
+
+<form style="position:center; max-width:400px; margin:auto;" method="post" action="~/Books/SearchClick" >
+    <input style="height:30px; width:200px;" type="text" placeholder="Unesite parametre pretrage..." name="pretraga" />
+    <select style="height:25px; width:75px;" name="pretraziPo">
+        <option value="naziv">Naziv</option>
+        <option value="zanr">Zanr</option>
+        <option value="cena">Cena</option>
+    </select>
+    <input style="height:30px; width:100px;" type="submit" value="Trazi"/>
+</form>
+
+<br/> 
+<form style="position:center; max-width:300px; margin:auto;" method="post" action="~/Books/SortClick">
+    <select style="height:25px; width:75px;" name="sortirajPo">
+        <option value="naziv">Naziv</option>
+        <option value="zanr">Zanr</option>
+        <option value="cena">Cena</option>
+    </select>
+    <select style="height:25px; width:95px; " name="opadajuceRastuce">
+        <option value="opadajuce">Opadajuce</option>
+        <option value="rastuce">Rastuce</option>
+    </select>
+    <input style="height:30px; width:100px;" type="submit" value="Sortiraj" />
+</form>
+
+<br /> <br/>
+
+<table class="content" style="border-left:0px; border-right:0px;">
+    <tr style="border-bottom:2px solid black; border-top:2px solid black;">
+        <td width="800" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Naziv</td>
+        <td width="800" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Autor</td>
+        <td width="300" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Zanr</td>
+        <td width="300" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Cena</td>
+        @if (Session["kupac"] != null)
+        {
+            <td width="800" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Opcije</td>
+        }
+        else
+        {
+            <td width="800" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;"></td>
+        }
+    </tr>
+    @if (Session["pretrazeni"] != null)
+    {
+        foreach (Knjiga knjiga in (List<Knjiga>)Session["pretrazeni"])
+        {
+            if (knjiga.Obrisana == false && knjiga.BrojKopija != 0)
+            {
+            <tr style="border-bottom:1px solid black; border-top:1px solid black">
+                <td width="500" align="center">@knjiga.Naziv</td>
+                <td width="500" align="center">@knjiga.Autor</td>
+                <td width="300" align="center">@knjiga.ZanrKnjige.ToString()</td>
+                <td width="300" align="center">@knjiga.Cena</td>
+                <td width="500" align="center">
+                    <a style="font-size:18px;" href="~/Books/Details?detailsN=@knjiga.Naziv&detailsA=@knjiga.Autor&detailsC=@knjiga.Cena">Detalji</a>
+                    @if (Session["kupac"] != null)
+                    {
+                        Korisnik kupac = (Korisnik)Session["kupac"];
+                        if (kupac.UlogaKorisnika == Uloga.ADMIN)
+                        {
+                            <br />
+                            <a style="font-size:18px;" href="~/Books/Delete?deleteN=@knjiga.Naziv&deleteA=@knjiga.Autor&deleteC=@knjiga.Cena">Obrisi</a>
+                        }
+                        else
+                        {
+                            <br />
+                            <a style="font-size:18px;" href="~/Books/AddToChart?AddChartN=@knjiga.Naziv&AddChartA=@knjiga.Autor&AddChartC=@knjiga.Cena">Dodaj u korpu</a>
+                        }
+                     }
+                </td>
+            </tr>
+            }
+        }
+        Session["pretrazeni"] = null;
+        Session["sortirani"] = null;
+
+    }
+    else if (Session["sortirani"] != null)
+    {
+        foreach (Knjiga knjiga in (List<Knjiga>)Session["sortirani"])
+        {
+            if (knjiga.Obrisana == false && knjiga.BrojKopija != 0)
+            {
+            <tr style="border-bottom:1px solid black; border-top:1px solid black">
+                <td width="500" align="center">@knjiga.Naziv</td>
+                <td width="500" align="center">@knjiga.Autor</td>
+                <td width="300" align="center">@knjiga.ZanrKnjige.ToString()</td>
+                <td width="300" align="center">@knjiga.Cena</td>
+                <td width="500" align="center">
+                    <a style="font-size:18px;" href="~/Books/Details?detailsN=@knjiga.Naziv&detailsA=@knjiga.Autor&detailsC=@knjiga.Cena">Detalji</a>
+                    @if (Session["kupac"] != null)
+                    {
+                        Korisnik kupac = (Korisnik)Session["kupac"];
+                        if (kupac.UlogaKorisnika == Uloga.ADMIN)
+                        {
+                            <br />
+                            <a style="font-size:18px;" href="~/Books/Delete?deleteN=@knjiga.Naziv&deleteA=@knjiga.Autor&deleteC=@knjiga.Cena">Obrisi</a>
+                        }
+                        else
+                        {
+                            <br />
+                            <a style="font-size:18px;" href="~/Books/AddToChart?AddChartN=@knjiga.Naziv&AddChartA=@knjiga.Autor&AddChartC=@knjiga.Cena">Dodaj u korpu</a>
+                        }
+                    }
+                </td>
+            </tr>
+            }
+        }
+        Session["pretrazeni"] = null;
+        Session["sortirani"] = null;
+
+    }
+    else if (Context.Application["knjige"] != null)
+    {
+        foreach (Knjiga knjiga in (List<Knjiga>)Context.Application["knjige"])
+        {
+            if (knjiga.Obrisana == false && knjiga.BrojKopija != 0)
+            {
+            <tr style="border-bottom:1px solid black; border-top:1px solid black">
+                <td width="500" align="center">@knjiga.Naziv</td>
+                <td width="500" align="center">@knjiga.Autor</td>
+                <td width="300" align="center">@knjiga.ZanrKnjige.ToString()</td>
+                <td width="300" align="center">@knjiga.Cena</td>
+                <td width="500" align="center">
+                    <a style="font-size:18px;" href="~/Books/Details?detailsN=@knjiga.Naziv&detailsA=@knjiga.Autor&detailsC=@knjiga.Cena">Detalji</a>
+                    @if (Session["kupac"] != null)
+                    {
+                        Korisnik kupac = (Korisnik)Session["kupac"];
+                        if (kupac.UlogaKorisnika == Uloga.ADMIN)
+                        {
+                            <br />
+                            <a style="font-size:18px;" href="~/Books/Delete?deleteN=@knjiga.Naziv&deleteA=@knjiga.Autor&deleteC=@knjiga.Cena">Obrisi</a>
+                        }
+                        else
+                        {
+                            <br />
+                            <a style="font-size:18px;" href="~/Books/AddToChart?AddChartN=@knjiga.Naziv&AddChartA=@knjiga.Autor&AddChartC=@knjiga.Cena">Dodaj u korpu</a>
+                        }
+                    }
+                </td>
+            </tr>
+            }
+        }
+    }
+</table>
+
+@if (Session["kupac"] != null && ((Dictionary<string, Knjizara>)Context.Application["knjizare"]).Values.Count > 0)
+{
+    Korisnik kupac = (Korisnik)Session["kupac"];
+    if (kupac.UlogaKorisnika == Uloga.ADMIN)
+    {
+        <br/> <br/> <br/>
+        <a href="~/Books/AddBook">Dodaj knjigu</a>
+        <br /> 
+    }
+}

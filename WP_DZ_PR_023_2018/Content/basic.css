@@ -1,0 +1,40 @@
+﻿.form-content {
+    max-width: 170px;
+    margin: auto;
+}
+
+input {
+    background-color: #393939;
+    color: white;
+    font-size: 15px;
+}
+
+body::after {
+    content: "";
+    background: url('/Images/bck10.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+h2 {
+    color: lightpink;
+    font-family: Cambria;
+    font-size: 45px;
+    font-weight: bold;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+a {
+    color: black;
+    font-family: Cambria;
+    font-size: 22px;
+    -webkit-text-stroke-width: 0.3px;
+}

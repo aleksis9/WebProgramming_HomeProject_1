@@ -1,0 +1,22 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+
+@{
+    ViewBag.Title = "Details";
+}
+@{ 
+    Korisnik k = (Korisnik)ViewBag.Detalji;
+}
+
+<h2 style="text-align:center; color:black; font-size:30px;">Detalji o korisniku @k.Ime @k.Prezime</h2>
+
+<br/> 
+
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Ime: </b>@k.Ime</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Prezime: </b>@k.Prezime</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Korisnicko ime: </b>@k.KorisnickoIme</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Email: </b>@k.Email</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Pol: </b>@k.PolKorisnika.ToString()</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Uloga: </b>@k.UlogaKorisnika.ToString()</p>
+
+<br/><br/>
+<a href="~/Accounts/ListAccounts">Nazad</a>

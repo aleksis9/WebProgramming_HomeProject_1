@@ -1,0 +1,26 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+
+@{
+    //detalji o knjizi
+    ViewBag.Title = "Details";
+}
+@{
+    Knjiga k = (Knjiga)ViewBag.Detalji;
+}
+
+<h2 style="text-align:center; color:black; font-size:30px;">Detalji o knjizi @k.Naziv - @k.Autor</h2>
+
+<br />
+
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Naziv: </b>@k.Naziv</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Autor: </b>@k.Autor</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Zanr: </b>@k.ZanrKnjige.ToString()</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Broj strana: </b>@k.BrojStranica</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Opis: </b>@k.Opis</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Cena: </b>@k.Cena</p>
+<p style="font-family:Cambria; font-size:22px; text-align:center;"><b>Broj kopija na stanju: </b>@k.BrojKopija</p>
+
+<br /><br />
+<a href="~/Books/EditBook?naziv=@k.Naziv&autor=@k.Autor&cena=@k.Cena">Izmeni</a>
+<br /><br />
+<a href="~/Books/Index">Nazad</a>

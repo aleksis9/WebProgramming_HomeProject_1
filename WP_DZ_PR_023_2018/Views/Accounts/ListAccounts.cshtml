@@ -1,0 +1,66 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+@{
+    ViewBag.Title = "ListAccounts";
+}
+
+@if (TempData["message"] != null)
+{
+    <p style="text-align:center; font-family:Cambria; font-size:20px; font-weight:bold; font-style:italic;">@TempData["message"]</p>
+    TempData["message"] = null;
+}
+
+<h2 style="text-align:center; color:black; font-size:30px;">Spisak registrovanih korisnika</h2>
+@{
+    List<Korisnik> korisnici = (List<Korisnik>)Context.Application["registrovani"];
+    Admini admini = (Admini)Context.Application["admini"];
+    Korisnik kupac = (Korisnik)Session["kupac"];
+}
+
+@if (kupac != null && kupac.UlogaKorisnika == Uloga.ADMIN)
+{
+    if (korisnici.Count() != 0 || admini.list.Count() != 0)
+    {
+        <br/>
+        <table class="content" style="border-left:0px; border-right:0px; text-align:center;">
+            <tr style="border-bottom:2px solid black; border-top:2px solid black;">
+                <td width="600" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Ime&ensp;&ensp;</td>
+                <td width="600" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Prezime&ensp;&ensp;</td>
+                <td width="600" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Username&ensp;&ensp;</td>
+                <td width="600" align="center" style="font-weight:bold; font-size:20px; font-family:Cambria;">Opcije&ensp;&ensp;</td>
+            </tr>
+            @foreach (Korisnik k in admini.list.Values)
+            {
+                <tr style="border-bottom:1px solid black; border-top:1px solid black">
+                    <td width="500" align="center" style="font-size:17px;">@k.Ime&ensp;&ensp;</td>
+                    <td width="500" align="center" style="font-size:17px;">@k.Prezime&ensp;&ensp;</td>
+                    <td width="500" align="center" style="font-size:17px;">@k.KorisnickoIme&ensp;&ensp;</td>
+                    <td width="500" align="center" style="font-size:17px;">
+                        <a style="font-size:18px;" href="~/Accounts/Delete?username=@k.KorisnickoIme">Obrisi</a>
+                        <br />
+                        <a style="font-size:18px;" href="~/Accounts/Details?username=@k.KorisnickoIme">Detalji</a>
+                    </td>
+                </tr>
+            }
+            @foreach (Korisnik k in korisnici)
+            {
+                if (k.Deleted == false)
+                {
+                    <tr style="border-bottom:1px solid black; border-top:1px solid black">
+                        <td width="500" align="center" style="font-size:17px;">@k.Ime&ensp;&ensp;</td>
+                        <td width="500" align="center" style="font-size:17px;">@k.Prezime&ensp;&ensp;</td>
+                        <td width="500" align="center" style="font-size:17px;">@k.KorisnickoIme&ensp;&ensp;</td>
+                        <td width="500" align="center" style="font-size:17px;">
+                            <a style="font-size:18px;" href="~/Accounts/Delete?username=@k.KorisnickoIme">Obrisi</a>
+                            <br />
+                            <a style="font-size:18px;" href="~/Accounts/Details?username=@k.KorisnickoIme">Detalji</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+}
+else
+{
+    <p style="font-style:italic; text-align:center;">Ne mozete pristupiti spisku korisnika</p>
+}

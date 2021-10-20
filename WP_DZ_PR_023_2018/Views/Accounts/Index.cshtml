@@ -1,0 +1,29 @@
+﻿@using WP_DZ_PR_23_2018.Models;
+@{
+    ViewBag.Title = "Accounts";
+}
+
+<br /><br /><br />
+
+@if (TempData["message"] != null)
+{
+    <p style="text-align:center; font-family:Cambria; font-size:20px; font-weight:bold; font-style:italic;">@TempData["message"]</p>
+    TempData["message"] = null;
+}
+
+<br /><br />
+
+<form class="form-content" method="post" action="~/Accounts/RegisterClick">
+    <input style="height:40px; width:200px;" type="text" placeholder="Ime" name="ime" /> <br /><br />
+    <input style="height:40px; width:200px;" type="text" placeholder="Prezime" name="prezime" /> <br /><br />
+    <input style="height:40px; width:200px;" type="text" placeholder="Korisnicko ime" name="korisnickoIme" /> <br /><br />
+    <input style="height:40px; width:200px;" type="email" placeholder="Email" name="email" /> <br /><br />
+    <input style="height:40px; width:200px;" type="password" placeholder="Lozinka" name="lozinka" /> <br /><br />
+    <select name="pol" style="height:35px; width:75px;">
+        <option value="M">M</option>
+        <option value="Z">Z</option>
+    </select> <br /><br />
+    <input style="height:40px; width:200px;" type="text" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" placeholder="Datum rodjenja:dd/mm/gggg" name="datumRodjenja" /> <br /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input style="height:30px; width:100px;" type="submit" value="Register" />
+</form>
